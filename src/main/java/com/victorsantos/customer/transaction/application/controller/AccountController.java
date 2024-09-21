@@ -18,5 +18,5 @@ public interface AccountController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    CreateAccountResponse create(@Valid @RequestBody CreateAccountRequest request);
+    CreateAccountResponse create(@RequestBody @Valid CreateAccountRequest request);
 }
