@@ -176,7 +176,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/AuthorizerApplication.class</exclude>
-						<exclude>**/ExceptionFactory.class</exclude>
+						<exclude>**/*ExceptionFactory.class</exclude>
 						<exclude>**/*Configuration.class</exclude>
 					</excludes>
 					<rules>

@@ -11,9 +11,11 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @ControllerAdvice
 @Slf4j
@@ -40,6 +42,24 @@ public class CommonExceptionHandler {
         var validationErrorResponse = new ValidationErrorResponse(
                 "validation_error", "Validation error", "One or more fields are invalid", validationErrors);
         return new ResponseEntity<>(validationErrorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ResponseEntity<ErrorResponse> handleHttpMediaTypeNotSupportedException(
+            HttpMediaTypeNotSupportedException ex) {
+        String title = "Unsupported media type";
+        String detail = String.format("The requested media type '%s' is not supported", ex.getContentType());
+        ErrorResponse errorResponse = new ErrorResponse("unsupported_media_type_error", title, detail);
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(
+            MethodArgumentTypeMismatchException ex) {
+        String title = "Bad request";
+        String detail = String.format("Param '%s' has an invalid value '%s'", ex.getName(), ex.getValue());
+        ErrorResponse errorResponse = new ErrorResponse("bad_request_error", title, detail);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)

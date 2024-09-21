@@ -4,6 +4,7 @@ import com.victorsantos.customer.transaction.application.exception.ExceptionFact
 import com.victorsantos.customer.transaction.domain.entity.Account;
 import com.victorsantos.customer.transaction.infra.data.AccountRepository;
 import com.victorsantos.customer.transaction.infra.data.model.AccountModel;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,15 @@ class AccountServiceImpl implements AccountService {
         }
         var model = new AccountModel(documentNumber);
         model = accountRepository.save(model);
+        return mapEntity(model);
+    }
+
+    @Override
+    public Optional<Account> getById(long accountId) {
+        return accountRepository.findById(accountId).map(this::mapEntity);
+    }
+
+    private Account mapEntity(AccountModel model) {
         return new Account(model.getId(), model.getDocumentNumber());
     }
 }

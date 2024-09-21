@@ -77,6 +77,39 @@ class CommonExceptionHandlerTest {
     }
 
     @Test
+    @DisplayName("should handle method argument type mismatch exceptions")
+    void testHandleMethodArgumentTypeMismatchException() throws Exception {
+        String param = "id";
+        String value = "abc";
+        String title = "Bad request";
+        String detail = String.format("Param '%s' has an invalid value '%s'", param, value);
+
+        ErrorResponse response = new ErrorResponse("bad_request_error", title, detail);
+        var responseJson = objectMapper.writeValueAsString(response);
+
+        mockMvc.perform(get(TEST_EXCEPTIONS_PATH + "/method-argument-type-mismatch")
+                        .queryParam("param", param)
+                        .queryParam("value", value))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json(responseJson));
+    }
+
+    @Test
+    @DisplayName("should handle http media type not supported exceptions")
+    void testHandleHttpMediaTypeNotSupportedException() throws Exception {
+        String title = "Unsupported media type";
+        String detail = "The requested media type 'null' is not supported";
+
+        ErrorResponse response = new ErrorResponse("unsupported_media_type_error", title, detail);
+        var responseJson = objectMapper.writeValueAsString(response);
+
+        mockMvc.perform(get(TEST_EXCEPTIONS_PATH + "/http-media-type-not-supported")
+                        .contentType("null"))
+                .andExpect(status().isUnsupportedMediaType())
+                .andExpect(content().json(responseJson));
+    }
+
+    @Test
     @DisplayName("should handle unexpected exceptions")
     void testHandleUnexpectedException() throws Exception {
         String message = "Internal server error";
