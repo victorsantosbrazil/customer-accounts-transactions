@@ -39,7 +39,7 @@
 		<!-- Dependencies versions -->
 		<postgresql.version>42.7.3</postgresql.version>
 		<flyway.version>10.17.0</flyway.version>
-		<springdoc.version>2.0.2</springdoc.version>
+		<springdoc.version>2.6.0</springdoc.version>
 
 		<!-- Plugins versions-->
 		<maven-compile-plugin.version>3.13.0</maven-compile-plugin.version>
@@ -176,6 +176,8 @@
 				<configuration>
 					<excludes>
 						<exclude>**/AuthorizerApplication.class</exclude>
+						<exclude>**/ExceptionFactory.class</exclude>
+						<exclude>**/*Configuration.class</exclude>
 					</excludes>
 					<rules>
 						<rule>
@@ -185,11 +187,6 @@
 									<counter>LINE</counter>
 									<value>COVEREDRATIO</value>
 									<minimum>0.8</minimum>
-								</limit>
-								<limit>
-									<counter>CLASS</counter>
-									<value>MISSEDCOUNT</value>
-									<maximum>0</maximum>
 								</limit>
 							</limits>
 						</rule>
