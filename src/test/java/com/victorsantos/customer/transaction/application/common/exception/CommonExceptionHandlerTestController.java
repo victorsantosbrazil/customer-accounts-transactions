@@ -1,13 +1,10 @@
 package com.victorsantos.customer.transaction.application.common.exception;
 
-import static java.util.Collections.singletonList;
-
 import com.victorsantos.customer.transaction.application.common.dto.ErrorResponse;
 import java.util.Map;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -44,11 +41,8 @@ class CommonExceptionHandlerTestController {
         throw new MethodArgumentTypeMismatchException(value, null, param, null, null);
     }
 
-    @GetMapping("/http-media-type-not-supported")
-    public void throwHttpMediaTypeNotSupportedException() throws HttpMediaTypeNotSupportedException {
-        throw new HttpMediaTypeNotSupportedException(
-                "Unsupported media type", singletonList(MediaType.APPLICATION_JSON));
-    }
+    @GetMapping(value = "/http-media-type-not-supported", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void throwHttpMediaTypeNotSupportedException() {}
 
     @GetMapping("/unexpected")
     public void throwUnexpectedException() {

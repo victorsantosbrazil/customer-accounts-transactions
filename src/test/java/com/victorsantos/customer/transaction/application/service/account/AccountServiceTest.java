@@ -76,7 +76,7 @@ class AccountServiceTest {
 
     @Test
     @DisplayName("getById: returns optional with account")
-    void testGet_givenId_whenAccountExists_thenReturnAccount() {
+    void testGetById_givenId_whenAccountExists_thenReturnOptionalWithAccount() {
         var id = 1L;
         var documentNumber = "12345678900";
         var account = new AccountModel(id, documentNumber);
