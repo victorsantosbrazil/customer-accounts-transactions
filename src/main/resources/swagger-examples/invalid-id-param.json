@@ -1,0 +1,5 @@
+{
+  "type": "bad_request_error",
+  "title": "Bad request",
+  "detail": "Param 'id' has an invalid value 'abc'"
+}

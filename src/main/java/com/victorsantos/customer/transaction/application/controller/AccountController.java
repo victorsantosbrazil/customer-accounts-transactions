@@ -1,7 +1,6 @@
 package com.victorsantos.customer.transaction.application.controller;
 
-import static com.victorsantos.customer.transaction.application.common.doc.CommonSwaggerExamples.INTERNAL_SERVER_ERROR;
-import static com.victorsantos.customer.transaction.application.common.doc.CommonSwaggerExamples.NOT_FOUND_BY_ID_REF;
+import static com.victorsantos.customer.transaction.application.common.doc.CommonSwaggerExamples.*;
 import static com.victorsantos.customer.transaction.application.controller.ControllerPath.ACCOUNTS_PATH;
 
 import com.victorsantos.customer.transaction.application.usecase.account.create.CreateAccountRequest;
@@ -67,7 +66,7 @@ public interface AccountController {
                                         examples =
                                                 @ExampleObject(
                                                         name = "Internal server error",
-                                                        ref = INTERNAL_SERVER_ERROR)))
+                                                        ref = INTERNAL_SERVER_ERROR_REF)))
             })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -77,6 +76,10 @@ public interface AccountController {
             summary = "Get account by id",
             responses = {
                 @ApiResponse(responseCode = "200", description = "Account found"),
+                @ApiResponse(
+                        responseCode = "400",
+                        description = "Invalid id",
+                        content = @Content(examples = @ExampleObject(name = "Invalid id", ref = INVALID_ID_PARAM_REF))),
                 @ApiResponse(
                         responseCode = "404",
                         description = "Account not found",
@@ -89,7 +92,7 @@ public interface AccountController {
                                         examples =
                                                 @ExampleObject(
                                                         name = "Internal server error",
-                                                        ref = INTERNAL_SERVER_ERROR)))
+                                                        ref = INTERNAL_SERVER_ERROR_REF)))
             })
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)

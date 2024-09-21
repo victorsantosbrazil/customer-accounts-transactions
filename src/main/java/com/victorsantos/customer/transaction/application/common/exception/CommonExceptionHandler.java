@@ -15,6 +15,7 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @ControllerAdvice
 @Slf4j
@@ -50,6 +51,15 @@ public class CommonExceptionHandler {
         String detail = String.format("The requested media type '%s' is not supported", ex.getContentType());
         ErrorResponse errorResponse = new ErrorResponse("unsupported_media_type_error", title, detail);
         return new ResponseEntity<>(errorResponse, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(
+            MethodArgumentTypeMismatchException ex) {
+        String title = "Bad request";
+        String detail = String.format("Param '%s' has an invalid value '%s'", ex.getName(), ex.getValue());
+        ErrorResponse errorResponse = new ErrorResponse("bad_request_error", title, detail);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)

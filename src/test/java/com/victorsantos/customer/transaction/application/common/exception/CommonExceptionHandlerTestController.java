@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestController
 @RequestMapping(CommonExceptionHandlerTestController.TEST_EXCEPTIONS_PATH)
@@ -35,6 +36,12 @@ class CommonExceptionHandlerTestController {
             bindingResult.addError(new FieldError("exampleObject", entry.getKey(), entry.getValue()));
         }
         throw new MethodArgumentNotValidException(null, bindingResult);
+    }
+
+    @GetMapping("/method-argument-type-mismatch")
+    public void throwMethodArgumentTypeMismatchException(@RequestParam String param, @RequestParam String value)
+            throws MethodArgumentNotValidException {
+        throw new MethodArgumentTypeMismatchException(value, null, param, null, null);
     }
 
     @GetMapping("/http-media-type-not-supported")
