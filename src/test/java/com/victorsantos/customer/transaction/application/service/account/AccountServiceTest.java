@@ -69,6 +69,6 @@ class AccountServiceTest {
         when(exceptionFactory.documentNumberAlreadyRegisteredException()).thenReturn(expectedException);
 
         var exception = assertThrows(expectedException.getClass(), () -> accountService.create(account));
-        assertEquals(expectedException.getMessage(), exception.getMessage());
+        assertEquals(expectedException, exception);
     }
 }
