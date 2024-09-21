@@ -27,7 +27,7 @@ class CommonExceptionHandlerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private CommonExceptionHandlerTestController exceptionHandlerTestController;
+    private CommonExceptionHandlerTestController commonExceptionHandlerTestController;
 
     @Autowired
     private CommonExceptionHandler commonExceptionHandler;
@@ -37,7 +37,7 @@ class CommonExceptionHandlerTest {
 
     @BeforeEach
     public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(exceptionHandlerTestController)
+        mockMvc = MockMvcBuilders.standaloneSetup(commonExceptionHandlerTestController)
                 .setControllerAdvice(commonExceptionHandler)
                 .build();
     }
@@ -45,9 +45,10 @@ class CommonExceptionHandlerTest {
     @Test
     @DisplayName("should handle api exceptions")
     void testHandleApiException() throws Exception {
-        int statusCode = 400;
-        String message = "Internal server error";
-        ErrorResponse response = new ErrorResponse("error", message, message);
+        int statusCode = 404;
+        String title = "Not found";
+        String detail = "The requested resource was not found";
+        ErrorResponse response = new ErrorResponse("error", title, detail);
         var responseJson = objectMapper.writeValueAsString(response);
 
         var path = String.format("%s/%s/%s", TEST_EXCEPTIONS_PATH, "/api-exception", statusCode);
@@ -64,14 +65,13 @@ class CommonExceptionHandlerTest {
         String title = "Validation error";
         String detail = "One or more fields are invalid";
         var errors = Map.of("name", "must not be empty");
+        var errorsJson = objectMapper.writeValueAsString(errors);
 
         ValidationErrorResponse response = new ValidationErrorResponse(type, title, detail, errors);
         var responseJson = objectMapper.writeValueAsString(response);
 
         var path = String.format("%s/%s", TEST_EXCEPTIONS_PATH, "/method-argument-not-valid");
-        mockMvc.perform(post(path)
-                        .content(objectMapper.writeValueAsString(errors))
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post(path).content(errorsJson).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(400))
                 .andExpect(content().json(responseJson));
     }

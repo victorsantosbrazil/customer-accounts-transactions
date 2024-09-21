@@ -30,16 +30,18 @@ class CreateAccountUseCaseTest {
         var request = new CreateAccountRequest(documentNumber);
 
         var accountId = 1L;
-        var expectedAccountInput = new Account(documentNumber);
-        var expectedAccountOutput = new Account(accountId, documentNumber);
+        var expectedCreatedAccount = new Account(documentNumber);
 
-        when(accountService.create(expectedAccountInput)).thenReturn(expectedAccountOutput);
+        when(accountService.create(expectedCreatedAccount)).thenAnswer(invocation -> {
+            Account input = invocation.getArgument(0);
+            return new Account(accountId, input.getDocumentNumber());
+        });
 
         var response = createAccountUseCase.run(request);
         var expectedResponse = new CreateAccountResponse(accountId, documentNumber);
 
         assertEquals(expectedResponse, response);
 
-        verify(accountService, times(1)).create(expectedAccountInput);
+        verify(accountService, times(1)).create(expectedCreatedAccount);
     }
 }

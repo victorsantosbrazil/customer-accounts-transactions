@@ -39,7 +39,7 @@ class AccountServiceTest {
         var id = 1L;
 
         when(accountRepository.save(any())).thenAnswer(invocation -> {
-            var input = (AccountModel) invocation.getArgument(0);
+            AccountModel input = invocation.getArgument(0);
             return new AccountModel(id, input.getDocumentNumber());
         });
 
@@ -52,7 +52,6 @@ class AccountServiceTest {
         verify(accountRepository, times(1)).save(savedModelArgCaptor.capture());
 
         var savedModel = savedModelArgCaptor.getValue();
-
         assertEquals(documentNumber, savedModel.getDocumentNumber());
     }
 
@@ -70,5 +69,7 @@ class AccountServiceTest {
 
         var exception = assertThrows(expectedException.getClass(), () -> accountService.create(account));
         assertEquals(expectedException, exception);
+
+        verify(accountRepository, never()).save(any());
     }
 }

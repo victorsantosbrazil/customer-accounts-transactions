@@ -29,9 +29,9 @@ public class CommonExceptionHandler {
     public ResponseEntity<ValidationErrorResponse> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex) {
         Map<String, String> validationErrors = new HashMap<>();
-        List<ObjectError> validationErrorList = ex.getBindingResult().getAllErrors();
+        List<ObjectError> bindingResultErrors = ex.getBindingResult().getAllErrors();
 
-        for (ObjectError error : validationErrorList) {
+        for (ObjectError error : bindingResultErrors) {
             String fieldName = ((FieldError) error).getField();
             String validationMessage = error.getDefaultMessage();
             validationErrors.put(fieldName, validationMessage);

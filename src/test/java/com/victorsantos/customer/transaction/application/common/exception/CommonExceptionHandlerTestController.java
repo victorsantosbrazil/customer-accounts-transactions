@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(CommonExceptionHandlerTestController.TEST_EXCEPTIONS_PATH)
 class CommonExceptionHandlerTestController {
 
-    public static final String TEST_EXCEPTIONS_PATH = "/test/exceptions";
+    public static final String TEST_EXCEPTIONS_PATH = "/test/common/exceptions";
 
     @PostMapping("/api-exception/{status}")
     public void throwApiException(

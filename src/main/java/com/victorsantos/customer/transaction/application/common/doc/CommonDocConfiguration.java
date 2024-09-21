@@ -24,7 +24,7 @@ public class CommonDocConfiguration {
         return openApi;
     }
 
-    public Components components() {
+    private Components components() {
         var components = new Components();
         addExamples(components);
         return components;
