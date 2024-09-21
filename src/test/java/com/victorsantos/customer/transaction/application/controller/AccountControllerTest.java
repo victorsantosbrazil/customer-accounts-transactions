@@ -3,6 +3,7 @@ package com.victorsantos.customer.transaction.application.controller;
 import static com.victorsantos.customer.transaction.application.controller.ControllerPath.ACCOUNTS_PATH;
 import static org.hamcrest.Matchers.hasKey;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -11,6 +12,8 @@ import com.victorsantos.customer.transaction.application.common.exception.Common
 import com.victorsantos.customer.transaction.application.usecase.account.create.CreateAccountRequest;
 import com.victorsantos.customer.transaction.application.usecase.account.create.CreateAccountResponse;
 import com.victorsantos.customer.transaction.application.usecase.account.create.CreateAccountUseCase;
+import com.victorsantos.customer.transaction.application.usecase.account.get.GetAccountResponse;
+import com.victorsantos.customer.transaction.application.usecase.account.get.GetAccountUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,6 +42,9 @@ class AccountControllerTest {
 
     @MockBean
     private CreateAccountUseCase createAccountUseCase;
+
+    @MockBean
+    private GetAccountUseCase getAccountUseCase;
 
     @BeforeEach
     public void setUp() {
@@ -80,5 +86,22 @@ class AccountControllerTest {
         }
 
         verify(createAccountUseCase, never()).run(any());
+    }
+
+    @Test
+    @DisplayName("get: given existing id when call endpoint then return account")
+    void testGet_whenCallEndpoint_thenReturnAccount() throws Exception {
+        var id = 1L;
+
+        var response = new GetAccountResponse(1L, "1234567890");
+        var responseJson = objectMapper.writeValueAsString(response);
+
+        when(getAccountUseCase.run(id)).thenReturn(response);
+
+        var uri = String.format("%s/%d", ACCOUNTS_PATH, id);
+
+        mockMvc.perform(get(uri).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json(responseJson));
     }
 }

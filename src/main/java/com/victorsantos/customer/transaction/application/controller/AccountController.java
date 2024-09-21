@@ -1,10 +1,12 @@
 package com.victorsantos.customer.transaction.application.controller;
 
-import static com.victorsantos.customer.transaction.application.common.doc.CommonSwaggerExamples.INTERNAL_SERVER_ERROR_REF;
+import static com.victorsantos.customer.transaction.application.common.doc.CommonSwaggerExamples.INTERNAL_SERVER_ERROR;
+import static com.victorsantos.customer.transaction.application.common.doc.CommonSwaggerExamples.NOT_FOUND_BY_ID_REF;
 import static com.victorsantos.customer.transaction.application.controller.ControllerPath.ACCOUNTS_PATH;
 
 import com.victorsantos.customer.transaction.application.usecase.account.create.CreateAccountRequest;
 import com.victorsantos.customer.transaction.application.usecase.account.create.CreateAccountResponse;
+import com.victorsantos.customer.transaction.application.usecase.account.get.GetAccountResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -13,10 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "accounts")
 @RequestMapping(
@@ -72,9 +71,31 @@ public interface AccountController {
                                         examples =
                                                 @ExampleObject(
                                                         name = "Internal server error",
-                                                        ref = INTERNAL_SERVER_ERROR_REF)))
+                                                        ref = INTERNAL_SERVER_ERROR)))
             })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     CreateAccountResponse create(@RequestBody @Valid CreateAccountRequest request);
+
+    @Operation(
+            summary = "Get account by id",
+            responses = {
+                @ApiResponse(responseCode = "200", description = "Account found"),
+                @ApiResponse(
+                        responseCode = "404",
+                        description = "Account not found",
+                        content = @Content(examples = @ExampleObject(name = "Not found", ref = NOT_FOUND_BY_ID_REF))),
+                @ApiResponse(
+                        responseCode = "500",
+                        description = "Internal server error",
+                        content =
+                                @Content(
+                                        examples =
+                                                @ExampleObject(
+                                                        name = "Internal server error",
+                                                        ref = INTERNAL_SERVER_ERROR)))
+            })
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    GetAccountResponse get(@PathVariable Long id);
 }

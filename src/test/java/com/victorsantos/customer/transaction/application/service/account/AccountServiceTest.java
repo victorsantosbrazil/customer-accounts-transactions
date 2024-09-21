@@ -9,6 +9,7 @@ import com.victorsantos.customer.transaction.application.exception.ExceptionFact
 import com.victorsantos.customer.transaction.domain.entity.Account;
 import com.victorsantos.customer.transaction.infra.data.AccountRepository;
 import com.victorsantos.customer.transaction.infra.data.model.AccountModel;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -71,5 +72,20 @@ class AccountServiceTest {
         assertEquals(expectedException, exception);
 
         verify(accountRepository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("getById: returns optional with account")
+    void testGet_givenId_whenAccountExists_thenReturnAccount() {
+        var id = 1L;
+        var documentNumber = "12345678900";
+        var account = new AccountModel(id, documentNumber);
+
+        when(accountRepository.findById(id)).thenReturn(Optional.of(account));
+
+        var response = accountService.getById(id);
+        var expected = Optional.of(new Account(id, documentNumber));
+
+        assertEquals(expected, response);
     }
 }
