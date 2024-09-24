@@ -1,5 +1,6 @@
 package com.victorsantos.customer.transaction.application.usecase.transaction.create;
 
+import com.victorsantos.customer.transaction.application.common.exception.NotImplementedException;
 import com.victorsantos.customer.transaction.application.service.transaction.TransactionService;
 import com.victorsantos.customer.transaction.domain.entity.Transaction;
 import com.victorsantos.customer.transaction.domain.enums.OperationType;
@@ -33,9 +34,17 @@ class CreateTransactionUseCaseImpl implements CreateTransactionUseCase {
         return switch (operationType) {
             case PURCHASE, INSTALLMENT_PURCHASE, WITHDRAWAL:
                 yield amount.negate();
-            default:
+            case PAYMENT:
                 yield amount;
+            default:
+                throw operationTypeNotSupportedException(operationType);
         };
+    }
+
+    private NotImplementedException operationTypeNotSupportedException(OperationType operationType) {
+        return new NotImplementedException(
+                "Operation type not supported",
+                String.format("Operation type '%s' is currently not supported", operationType.getId()));
     }
 
     private CreateTransactionResponse toResponse(Transaction transaction) {

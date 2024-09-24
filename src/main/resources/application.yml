@@ -12,3 +12,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha
+    operations-sorter: method

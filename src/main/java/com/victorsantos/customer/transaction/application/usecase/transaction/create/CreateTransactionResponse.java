@@ -16,10 +16,7 @@ public class CreateTransactionResponse {
     @Schema(description = "Account ID", example = "1")
     private Long accountId;
 
-    @Schema(
-            description =
-                    "Operation Type ID. Allowed values: 1 - PURCHASE, 2 - INSTALLMENT_PURCHASE, 3 - WITHDRAWAL, 4 - PAYMENT",
-            example = "1")
+    @Schema(description = "Operation Type ID", example = "1")
     private Short operationTypeId;
 
     @Schema(description = "Transaction amount", example = "100.00")

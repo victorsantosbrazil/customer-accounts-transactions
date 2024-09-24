@@ -14,8 +14,8 @@ class OperationTypeTest {
 
     @ParameterizedTest
     @MethodSource("provideIdsAndExpectedTypes")
-    @DisplayName("fromId: given id when valid then returns correct operation type")
-    void testFromId_givenId_thenReturnsCorrectOperationType(short id, OperationType expected) {
+    @DisplayName("fromId: given id when valid then return OperationType")
+    void testFromId_givenId_whenValid_thenReturnOperationType(short id, OperationType expected) {
         OperationType result = OperationType.fromId(id);
         assertEquals(expected, result);
     }
@@ -29,7 +29,7 @@ class OperationTypeTest {
     }
 
     @Test
-    @DisplayName("fromId: given invalid id when invalid then throws IllegalArgumentException")
+    @DisplayName("fromId: given id when invalid then throws IllegalArgumentException")
     void testFromId_givenId_whenInvalid_thenThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> OperationType.fromId((short) 0));
     }

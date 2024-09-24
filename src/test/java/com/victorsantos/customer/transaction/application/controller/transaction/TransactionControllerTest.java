@@ -76,7 +76,7 @@ class TransactionControllerTest {
 
     @Test
     @DisplayName("create: given required fields missing when call endpoint then bad request")
-    void testCreate_givenRequiredFieldsMissing_whenCallEndpoint_thenBadRequest() throws Exception {
+    void testCreate_givenRequestWithRequiredFieldsMissing_whenCallEndpoint_thenBadRequest() throws Exception {
         var request = CreateTransactionRequest.builder().build();
 
         var requestJson = objectMapper.writeValueAsString(request);
@@ -96,7 +96,7 @@ class TransactionControllerTest {
 
     @Test
     @DisplayName("create: given invalid fields when call endpoint then bad request")
-    void testCreate_givenInvalidFields_whenCallEndpoint_thenBadRequest() throws Exception {
+    void testCreate_givenRequestWithInvalidFields_whenCallEndpoint_thenBadRequest() throws Exception {
         var request = CreateTransactionRequest.builder()
                 .accountId(-1L)
                 .operationTypeId((short) 0)
