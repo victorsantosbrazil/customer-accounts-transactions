@@ -34,7 +34,8 @@ public class CommonExceptionHandler {
         List<ObjectError> bindingResultErrors = ex.getBindingResult().getAllErrors();
 
         for (ObjectError error : bindingResultErrors) {
-            String fieldName = ((FieldError) error).getField();
+            FieldError fieldError = (FieldError) error;
+            String fieldName = toSnakeCase(fieldError.getField());
             String validationMessage = error.getDefaultMessage();
             validationErrors.put(fieldName, validationMessage);
         }
@@ -42,6 +43,10 @@ public class CommonExceptionHandler {
         var validationErrorResponse = new ValidationErrorResponse(
                 "validation_error", "Validation error", "One or more fields are invalid", validationErrors);
         return new ResponseEntity<>(validationErrorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    private String toSnakeCase(String input) {
+        return input.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)

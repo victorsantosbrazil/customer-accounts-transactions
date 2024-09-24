@@ -1,5 +1,7 @@
 package com.victorsantos.customer.transaction.application.common.doc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.core.jackson.ModelResolver;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.examples.Example;
@@ -48,5 +50,10 @@ public class CommonDocConfiguration {
         Example example = new Example();
         example.setValue(fileContent);
         return example;
+    }
+
+    @Bean
+    public ModelResolver modelResolver(ObjectMapper objectMapper) {
+        return new ModelResolver(objectMapper);
     }
 }

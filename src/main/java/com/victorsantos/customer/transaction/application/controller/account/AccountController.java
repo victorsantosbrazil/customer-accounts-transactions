@@ -38,7 +38,7 @@ public interface AccountController {
                                                                     "title": "Validation error",
                                                                     "detail": "One or more fields are invalid",
                                                                     "errors": {
-                                                                        "documentNumber": "must not be blank"
+                                                                        "document_number": "must not be blank"
                                                                     }
                                                                 }
                                                                 """))),

@@ -40,8 +40,8 @@ public interface TransactionController {
                                                                   "title": "Validation error",
                                                                   "detail": "One or more fields are invalid",
                                                                   "errors": {
-                                                                    "accountId": "invalid account id",
-                                                                    "operationTypeId": "invalid operation type id",
+                                                                    "account_id": "invalid account id",
+                                                                    "operation_type_id": "invalid operation type id",
                                                                     "amount": "must be a positive number"
                                                                   }
                                                                 }
