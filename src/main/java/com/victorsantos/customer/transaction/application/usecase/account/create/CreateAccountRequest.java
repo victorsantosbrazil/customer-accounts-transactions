@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 public class CreateAccountRequest {
-    @Schema(example = "12345678900")
-    @NotBlank
+    @Schema(description = "Document number", example = "12345678900")
+    @NotBlank(message = "must not be blank")
     private String documentNumber;
 }

@@ -27,8 +27,13 @@ class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Optional<Account> getById(long accountId) {
-        return accountRepository.findById(accountId).map(this::mapEntity);
+    public Optional<Account> getById(long id) {
+        return accountRepository.findById(id).map(this::mapEntity);
+    }
+
+    @Override
+    public boolean existsById(long id) {
+        return accountRepository.existsById(id);
     }
 
     private Account mapEntity(AccountModel model) {

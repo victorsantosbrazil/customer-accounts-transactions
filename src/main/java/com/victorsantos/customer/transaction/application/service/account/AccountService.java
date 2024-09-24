@@ -6,5 +6,7 @@ import java.util.Optional;
 public interface AccountService {
     Account create(Account account);
 
-    Optional<Account> getById(long accountId);
+    Optional<Account> getById(long id);
+
+    boolean existsById(long id);
 }

@@ -1,4 +1,4 @@
-package com.victorsantos.customer.transaction.application.controller;
+package com.victorsantos.customer.transaction.application.controller.account;
 
 import com.victorsantos.customer.transaction.application.usecase.account.create.CreateAccountRequest;
 import com.victorsantos.customer.transaction.application.usecase.account.create.CreateAccountResponse;
