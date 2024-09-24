@@ -1,4 +1,4 @@
-package com.victorsantos.customer.transaction.application.controller;
+package com.victorsantos.customer.transaction.application.controller.account;
 
 import static com.victorsantos.customer.transaction.application.common.doc.CommonSwaggerExamples.*;
 import static com.victorsantos.customer.transaction.application.controller.ControllerPath.ACCOUNTS_PATH;

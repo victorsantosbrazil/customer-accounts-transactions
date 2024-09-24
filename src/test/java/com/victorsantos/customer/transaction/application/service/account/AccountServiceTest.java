@@ -1,7 +1,6 @@
 package com.victorsantos.customer.transaction.application.service.account;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.victorsantos.customer.transaction.application.common.exception.ConflictException;
@@ -87,5 +86,23 @@ class AccountServiceTest {
         var expected = Optional.of(new Account(id, documentNumber));
 
         assertEquals(expected, response);
+    }
+
+    @Test
+    @DisplayName("existsById: returns true when account exists")
+    void testExistsById_givenId_whenAccountExists_thenReturnTrue() {
+        var id = 1L;
+        when(accountRepository.existsById(id)).thenReturn(true);
+        var response = accountService.existsById(id);
+        assertTrue(response);
+    }
+
+    @Test
+    @DisplayName("existsById: returns false when account does not exist")
+    void testExistsById_givenId_whenAccountDoesNotExist_thenReturnFalse() {
+        var id = 1L;
+        when(accountRepository.existsById(id)).thenReturn(false);
+        var response = accountService.existsById(id);
+        assertFalse(response);
     }
 }
