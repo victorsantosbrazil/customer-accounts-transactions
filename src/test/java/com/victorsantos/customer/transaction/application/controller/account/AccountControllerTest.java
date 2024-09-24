@@ -14,21 +14,22 @@ import com.victorsantos.customer.transaction.application.usecase.account.create.
 import com.victorsantos.customer.transaction.application.usecase.account.create.CreateAccountUseCase;
 import com.victorsantos.customer.transaction.application.usecase.account.get.GetAccountResponse;
 import com.victorsantos.customer.transaction.application.usecase.account.get.GetAccountUseCase;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @WebMvcTest(AccountController.class)
 @ContextConfiguration(classes = {AccountControllerImpl.class, CommonExceptionHandler.class})
+@AutoConfigureMockMvc
 class AccountControllerTest {
 
+    @Autowired
     private MockMvc mockMvc;
 
     @Autowired
@@ -45,13 +46,6 @@ class AccountControllerTest {
 
     @MockBean
     private GetAccountUseCase getAccountUseCase;
-
-    @BeforeEach
-    public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(accountController)
-                .setControllerAdvice(commonExceptionHandler)
-                .build();
-    }
 
     @Test
     @DisplayName("create: given valid request when call endpoint then create account")
@@ -75,7 +69,7 @@ class AccountControllerTest {
         var request = new CreateAccountRequest("");
         var requestJson = objectMapper.writeValueAsString(request);
 
-        String[] invalidFields = {"documentNumber"};
+        String[] invalidFields = {"document_number"};
 
         var resultActions = mockMvc.perform(
                         post(ACCOUNTS_PATH).content(requestJson).contentType(MediaType.APPLICATION_JSON))

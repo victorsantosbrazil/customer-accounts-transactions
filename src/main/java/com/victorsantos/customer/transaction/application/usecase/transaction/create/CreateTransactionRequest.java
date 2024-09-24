@@ -16,7 +16,7 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class CreateTransactionRequest {
     @Schema(description = "Account ID", example = "1")
-    @NotNull
+    @NotNull(message = "must not be null")
     @Positive(message = "invalid account id")
     private Long accountId;
 

@@ -9,6 +9,8 @@ spring:
     enabled: false
   profiles:
     active: "@spring.profiles.active@"
+  jackson:
+    property-naming-strategy: SNAKE_CASE
   jpa:
     hibernate:
       ddl-auto: update

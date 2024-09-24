@@ -12,21 +12,22 @@ import com.victorsantos.customer.transaction.application.usecase.transaction.cre
 import com.victorsantos.customer.transaction.application.usecase.transaction.create.CreateTransactionResponse;
 import com.victorsantos.customer.transaction.application.usecase.transaction.create.CreateTransactionUseCase;
 import java.math.BigDecimal;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @WebMvcTest(TransactionController.class)
 @ContextConfiguration(classes = {TransactionControllerImpl.class, CommonExceptionHandler.class})
+@AutoConfigureMockMvc
 class TransactionControllerTest {
 
+    @Autowired
     private MockMvc mockMvc;
 
     @Autowired
@@ -40,13 +41,6 @@ class TransactionControllerTest {
 
     @MockBean
     private CreateTransactionUseCase createTransactionUseCase;
-
-    @BeforeEach
-    public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(transactionController)
-                .setControllerAdvice(commonExceptionHandler)
-                .build();
-    }
 
     @Test
     @DisplayName("create: given valid request when call endpoint then create transaction")
@@ -81,7 +75,7 @@ class TransactionControllerTest {
 
         var requestJson = objectMapper.writeValueAsString(request);
 
-        String[] invalidFields = {"accountId", "operationTypeId", "amount"};
+        String[] invalidFields = {"account_id", "operation_type_id", "amount"};
 
         var resultActions = mockMvc.perform(
                         post(TRANSACTIONS_PATH).content(requestJson).contentType(MediaType.APPLICATION_JSON))
@@ -105,7 +99,7 @@ class TransactionControllerTest {
 
         var requestJson = objectMapper.writeValueAsString(request);
 
-        String[] invalidFields = {"accountId", "operationTypeId", "amount"};
+        String[] invalidFields = {"account_id", "operation_type_id", "amount"};
 
         var resultActions = mockMvc.perform(
                         post(TRANSACTIONS_PATH).content(requestJson).contentType(MediaType.APPLICATION_JSON))
