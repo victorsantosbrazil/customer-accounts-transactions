@@ -16,18 +16,16 @@ foundation for developing sophisticated financial applications in today's digita
 
 ##  📔 Table of Contents
 <!--ts-->
-   * [Pre-requirements](#-pre-requirements)
    * [How to use](#-how-to-use)
       * [Setup](#setup)
       * [Run](#run)
-        * [Local](#local)
+        * [Pre-requirements](#pre-requirements)
+          * [Local enviroment](#local-environment)
+        * [Host or VM](#host-or-vm)
         * [Container](#container)
    * [Environment Variables](#-environment-variables)
    * [Tools](#-tools)
 <!--te-->
-
-## ✂️ Pre-requirements
-* [JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 
 ## 🎮 How to use
 
@@ -49,7 +47,19 @@ Install
 ```
 
 ### Run
-#### Local
+
+#### Pre-requirements
+* [JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+* [PostgreSQL database](https://www.postgresql.org/download/)
+* [Docker](https://docs.docker.com/engine/install/)
+
+##### Local environment
+* To quickly set up a local environment, run:
+```
+docker-compose up
+```
+
+#### Host or VM
 ```
 ./mvnw spring-boot:run
 ```
