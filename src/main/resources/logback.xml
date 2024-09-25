@@ -1,0 +1,16 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.victorsantos.customer.transaction.application.common.log.MaskingPatternLayout">
+
+                <maskPattern>\"document_number\":\s*\"(.*?)\"</maskPattern> <!-- Document number json path -->
+
+                <pattern>%d{"yyyy-MM-dd'T'HH:mm:ss,SSS"} [%20.20thread] %-5level %-36.36logger{36} : %msg%n</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

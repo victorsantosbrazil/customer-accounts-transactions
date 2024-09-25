@@ -7,6 +7,14 @@ spring:
     password: ${DB_PASSWORD:dbpass}
   profiles:
     active: "@spring.profiles.active@"
+  jackson:
+    property-naming-strategy: SNAKE_CASE
   jpa:
     hibernate:
       ddl-auto: validate
+  mvc:
+    throw-exception-if-no-handler-found: false
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha
+    operations-sorter: method

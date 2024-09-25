@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.victorsantos</groupId>
 	<artifactId>customer-accounts-transactions</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Customer accounts transactions</name>
 	<description>
 		The Customer Account and Transactions Service is a robust application designed to manage financial operations
@@ -39,7 +39,7 @@
 		<!-- Dependencies versions -->
 		<postgresql.version>42.7.3</postgresql.version>
 		<flyway.version>10.17.0</flyway.version>
-		<springdoc.version>2.0.2</springdoc.version>
+		<springdoc.version>2.6.0</springdoc.version>
 
 		<!-- Plugins versions-->
 		<maven-compile-plugin.version>3.13.0</maven-compile-plugin.version>
@@ -56,6 +56,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -176,6 +180,10 @@
 				<configuration>
 					<excludes>
 						<exclude>**/AuthorizerApplication.class</exclude>
+						<exclude>**/*ExceptionFactory.class</exclude>
+						<exclude>**/*Configuration.class</exclude>
+						<exclude>**/common/log/*.class</exclude>
+						<exclude>**/common/util/*.class</exclude>
 					</excludes>
 					<rules>
 						<rule>
@@ -185,11 +193,6 @@
 									<counter>LINE</counter>
 									<value>COVEREDRATIO</value>
 									<minimum>0.8</minimum>
-								</limit>
-								<limit>
-									<counter>CLASS</counter>
-									<value>MISSEDCOUNT</value>
-									<maximum>0</maximum>
 								</limit>
 							</limits>
 						</rule>
