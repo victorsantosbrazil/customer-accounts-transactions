@@ -25,7 +25,7 @@ public class CommonRequestLoggingFilter extends OncePerRequestFilter {
     private static final Set<String> LOGGED_REQUEST_HEADERS = Set.of("user-agent");
 
     private static final Set<String> IGNORED_URIS =
-            Set.of("/swagger-ui", "/v3/api-docs", "/swagger-resources", "/webjars/springfox-swagger-ui");
+            Set.of("/actuator", "/swagger-ui", "/v3/api-docs", "/swagger-resources", "/webjars/springfox-swagger-ui");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

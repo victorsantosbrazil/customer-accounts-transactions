@@ -12,6 +12,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+  mvc:
+    throw-exception-if-no-handler-found: false
 springdoc:
   swagger-ui:
     tags-sorter: alpha
