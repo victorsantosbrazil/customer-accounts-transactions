@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.victorsantos</groupId>
 	<artifactId>customer-accounts-transactions</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Customer accounts transactions</name>
 	<description>
 		The Customer Account and Transactions Service is a robust application designed to manage financial operations

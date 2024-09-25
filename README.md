@@ -3,7 +3,7 @@ Customer accounts transactions
 </h1>
 
 <h4 align="center">
-v0.0.1-SNAPSHOT
+v1.0.0
 </h4>
 
 ## 📰 Description
