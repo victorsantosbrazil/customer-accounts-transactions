@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
+@Table(name = "transaction")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
