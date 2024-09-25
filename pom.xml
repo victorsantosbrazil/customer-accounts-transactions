@@ -178,6 +178,8 @@
 						<exclude>**/AuthorizerApplication.class</exclude>
 						<exclude>**/*ExceptionFactory.class</exclude>
 						<exclude>**/*Configuration.class</exclude>
+						<exclude>**/common/log/*.class</exclude>
+						<exclude>**/common/util/*.class</exclude>
 					</excludes>
 					<rules>
 						<rule>
